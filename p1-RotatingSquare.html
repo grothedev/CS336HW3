@@ -6,7 +6,7 @@
 <title>Transformations</title>
 </head>
 
-<body> 
+<body>
 <canvas id="theCanvas" width="400" height="400">
 Please use a browser that supports "canvas"
 </canvas>
@@ -14,7 +14,7 @@ Please use a browser that supports "canvas"
 <script id="vertexShader" type="x-shader/x-vertex">
 uniform mat4 transform;
 attribute vec4 a_Position;
-void main() 
+void main()
 {
   gl_Position = transform * a_Position;
 }
@@ -22,7 +22,7 @@ void main()
 
 <script id="fragmentShader" type="x-shader/x-fragment">
 precision mediump float;
-void main() 
+void main()
 {
   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
@@ -33,7 +33,7 @@ void main()
 		<script src="../teal_book/webgl-debug.js"></script>
 		<script src="../teal_book/cuon-utils.js"></script>
 		<script src="../teal_book/cuon-matrix.js"></script>
-		<script src="RotatingSquare.js"></script>
+		<script src="p1-RotatingSquare.js"></script>
 		<script>window.onload = main</script>
 </body>
 </html>
