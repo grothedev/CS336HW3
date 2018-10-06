@@ -219,8 +219,8 @@ function updateAxis(){
 	axis[2] = l * Math.cos(pr);
 
 	rVertices = new Float32Array([
-		-1 * axis[0], -1 * axis[1], -1 * axis[2],
-		axis[0], axis[1], axis[2]
+		-3 * axis[0], -3 * axis[1], -3 * axis[2],
+		3*axis[0], 3*axis[1], 3*axis[2]
 	]);
 }
 
@@ -286,7 +286,7 @@ function draw()
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // set transformation to projection * view only
-  transform = new Matrix4().multiply(projection).multiply(view);
+  transform = new Matrix4().multiply(projection).multiply(view).multiply(model);
   gl.uniformMatrix4fv(transformLoc, false, transform.elements);
 
   // draw axes
