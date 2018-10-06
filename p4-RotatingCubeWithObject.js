@@ -161,16 +161,6 @@ function handleKeyPress(event)
 
   switch (ch)
   {
-  // controls
-	case 'p': //increase pitch 5degrees
-		
-		break;
-	case 'P': //decrease pitch
-		break;
-	case 'h': //increase head
-		break;
-	case 'H': //decrease head
-		break;
 
   case 'w':
     theObject.moveForward(0.1);

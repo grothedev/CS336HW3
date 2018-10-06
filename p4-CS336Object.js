@@ -87,7 +87,10 @@ CS336Object.prototype.getMatrix = function()
  */
 CS336Object.prototype.moveForward = function(distance)
 {
-  // TODO
+  this.position.elements[2] -= distance;
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
@@ -103,7 +106,10 @@ CS336Object.prototype.moveBack = function(distance)
  */
 CS336Object.prototype.moveRight = function(distance)
 {
-  // TODO
+  this.position.elements[0] += distance;
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
@@ -119,7 +125,10 @@ CS336Object.prototype.moveLeft = function(distance)
  */
 CS336Object.prototype.moveUp = function(distance)
 {
-  // TODO
+  this.position.elements[1] += distance;
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
@@ -135,7 +144,10 @@ CS336Object.prototype.moveDown = function(distance)
  */
 CS336Object.prototype.rotateX = function(degrees)
 {
-  // TODO
+  this.rotation.rotate(degrees, 1, 0, 0);
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
@@ -143,7 +155,10 @@ CS336Object.prototype.rotateX = function(degrees)
  */
 CS336Object.prototype.rotateY = function(degrees)
 {
-  // TODO
+  this.rotation.rotate(degrees, 0, 1, 0);
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
@@ -151,7 +166,10 @@ CS336Object.prototype.rotateY = function(degrees)
  */
 CS336Object.prototype.rotateZ = function(degrees)
 {
-  // TODO
+  this.rotation.rotate(degrees, 0, 0, 1);
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
@@ -159,7 +177,10 @@ CS336Object.prototype.rotateZ = function(degrees)
  */
 CS336Object.prototype.rotateOnAxis = function(degrees, x, y, z)
 {
-  // TODO
+  this.rotation.rotate(degrees, x, y, z);
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
@@ -168,7 +189,16 @@ CS336Object.prototype.rotateOnAxis = function(degrees, x, y, z)
  */
 CS336Object.prototype.rotateOnAxisEuler = function(degrees, pitch, head)
 {
-  // TODO
+  let p = pitch * Math.PI / 180;
+	let h = head * Math.PI / 180;
+	let l = Math.sin(p);
+	let x = l * Math.sin(h);
+	let y = Math.cos(p);
+	let z = l * Math.cos(h);
+  this.rotation.rotate(degrees, x, y, z);
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
@@ -177,7 +207,10 @@ CS336Object.prototype.rotateOnAxisEuler = function(degrees, pitch, head)
  */
 CS336Object.prototype.turnLeft = function(degrees)
 {
-  // TODO
+  //this.rotation.rotate();
+  console.log(this);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**

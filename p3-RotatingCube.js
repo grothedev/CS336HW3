@@ -140,7 +140,8 @@ var rColorBuffer; //rotation axis
 var shader;
 
 // transformation matrices
-var model = new Matrix4();
+var modelCube = new Matrix4();
+var modelR = new Matrix4();
 
 //view matrix
 //One strategy is to identify a transformation to our camera frame,
@@ -211,17 +212,21 @@ function handleKeyPress(event)
 
 function updateAxis(){
 	//deg to rad
-	let tr = theta * Math.PI / 180;
-	let pr = phi * Math.PI / 180;
+	let tr = -theta * Math.PI / 180;
+	let pr = -phi * Math.PI / 180;
 	let l = Math.sin(tr);
 	axis[0] = l * Math.sin(pr);
 	axis[1] = Math.cos(tr);
 	axis[2] = l * Math.cos(pr);
 
-	rVertices = new Float32Array([
+	/*rVertices = new Float32Array([
 		-3 * axis[0], -3 * axis[1], -3 * axis[2],
 		3*axis[0], 3*axis[1], 3*axis[2]
 	]);
+	*/
+
+	modelR.setRotate(phi, 0, 1, 0, 0).rotate(theta, 1, 0, 0, 0 );
+	resetCube();
 }
 
 // code to actually render our geometry
@@ -258,7 +263,7 @@ function draw()
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // set uniform in shader for projection * view * model transformation
-  var transform = new Matrix4().multiply(projection).multiply(view).multiply(model);
+  var transform = new Matrix4().multiply(projection).multiply(view).multiply(modelCube);
   var transformLoc = gl.getUniformLocation(shader, "transform");
   gl.uniformMatrix4fv(transformLoc, false, transform.elements);
 
@@ -286,7 +291,7 @@ function draw()
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // set transformation to projection * view only
-  transform = new Matrix4().multiply(projection).multiply(view).multiply(model);
+  transform = new Matrix4().multiply(projection).multiply(view).multiply(modelR);
   gl.uniformMatrix4fv(transformLoc, false, transform.elements);
 
   // draw axes
@@ -298,6 +303,29 @@ function draw()
   gl.disableVertexAttribArray(positionIndex);
   gl.disableVertexAttribArray(colorIndex);
   gl.useProgram(null);
+}
+
+function resetCube(){
+	// create model data
+  var cube = makeCube();
+
+  // buffer for vertex positions for triangles
+  vertexBuffer = gl.createBuffer();
+  if (!vertexBuffer) {
+	  console.log('Failed to create the buffer object');
+	  return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, cube.vertices, gl.STATIC_DRAW);
+
+  // buffer for vertex colors
+  vertexColorBuffer = gl.createBuffer();
+  if (!vertexColorBuffer) {
+	  console.log('Failed to create the buffer object');
+	  return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, cube.colors, gl.STATIC_DRAW);
 }
 
 // entry point when page is loaded
@@ -425,8 +453,8 @@ function main() {
 		// default:
 		// }
 
-   //model.rotate(1, 0, 1, 0);
-	 model.rotate(1, axis[0], axis[1], axis[2]);
+   //modelCube.rotate(1, 0, 1, 0);
+	 modelCube.rotate(1, axis[0], axis[1], axis[2]);
 
     // another way to get the same effect as above: multiply on left by
 		// a new one-degree rotation about TRANSFORMED axis
