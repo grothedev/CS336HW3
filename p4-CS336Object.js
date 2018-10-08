@@ -87,7 +87,12 @@ CS336Object.prototype.getMatrix = function()
  */
 CS336Object.prototype.moveForward = function(distance)
 {
-  this.position.elements[2] -= distance;
+  //this.position.elements[2] -= distance;
+  let r = this.rotation.elements;
+  this.position.elements[0] -= distance * r[8];
+  this.position.elements[1]  -= distance * r[9];
+  this.position.elements[2] -= distance * r[10];
+
   console.log(this);
   this.matrixNeedsUpdate = true;
   return this.getMatrix();
@@ -106,7 +111,11 @@ CS336Object.prototype.moveBack = function(distance)
  */
 CS336Object.prototype.moveRight = function(distance)
 {
-  this.position.elements[0] += distance;
+  let r = this.rotation.elements;
+  this.position.elements[0] += distance * r[0];
+  this.position.elements[1] += distance * r[1];
+  this.position.elements[2] += distance * r[2];
+
   console.log(this);
   this.matrixNeedsUpdate = true;
   return this.getMatrix();
@@ -125,7 +134,11 @@ CS336Object.prototype.moveLeft = function(distance)
  */
 CS336Object.prototype.moveUp = function(distance)
 {
-  this.position.elements[1] += distance;
+  let r = this.rotation.elements;
+  this.position.elements[0] += distance * r[4];
+  this.position.elements[1] += distance * r[5];
+  this.position.elements[2] += distance * r[6];
+
   console.log(this);
   this.matrixNeedsUpdate = true;
   return this.getMatrix();
@@ -145,7 +158,7 @@ CS336Object.prototype.moveDown = function(distance)
 CS336Object.prototype.rotateX = function(degrees)
 {
   this.rotation.rotate(degrees, 1, 0, 0);
-  console.log(this);
+  console.log(this.rotation.elements);
   this.matrixNeedsUpdate = true;
   return this.getMatrix();
 };
@@ -254,6 +267,7 @@ CS336Object.prototype.orbitUp = function(degrees, distance)
   this.moveForward(distance);
   this.lookDown(degrees);
   this.moveBack(distance);
+
 };
 
 /**

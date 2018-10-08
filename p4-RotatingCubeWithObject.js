@@ -198,7 +198,7 @@ function handleKeyPress(event)
 
     // alternates for arrow keys
   case 'J':
-    theObject.orbitRight(5, 10);
+    theObject.orbitRight(5, distance);
     break;
   case 'L':
     theObject.orbitLeft(5, distance);
@@ -229,6 +229,12 @@ function handleKeyPress(event)
   case 'X':
     theObject.rotateX(-5); // same as look down
     break;
+	case 'b':
+		theObject.rotateOnAxis(30, 1, 1, 1);
+		break;
+	case 'n':
+		theObject.rotateOnAxisEuler(30, 15, 15);
+		break;
 
   }
 
