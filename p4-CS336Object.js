@@ -207,7 +207,9 @@ CS336Object.prototype.rotateOnAxisEuler = function(degrees, pitch, head)
  */
 CS336Object.prototype.turnLeft = function(degrees)
 {
-  //this.rotation.rotate();
+  var trans = this.position;
+  var rot = this.rotation;
+  this.rotation = new Matrix4().setRotate(degrees, 0, 1, 0).multiply(rot);
   console.log(this);
   this.matrixNeedsUpdate = true;
   return this.getMatrix();
@@ -249,7 +251,9 @@ CS336Object.prototype.lookDown = function(degrees)
  */
 CS336Object.prototype.orbitUp = function(degrees, distance)
 {
-  // TODO
+  this.moveForward(distance);
+  this.lookDown(degrees);
+  this.moveBack(distance);
 };
 
 /**
@@ -271,7 +275,9 @@ CS336Object.prototype.orbitDown = function(degrees, distance)
  */
 CS336Object.prototype.orbitRight = function(degrees, distance)
 {
-  // TODO
+  this.moveForward(distance);
+  this.turnLeft(degrees);
+  this.moveBack(distance);
 };
 
 /**

@@ -108,13 +108,18 @@ function handleKeyPress(event)
       text = "A";
       break;
     case 'a': //zxz
-      m.setRotate(22.5, 0, 0, 1).rotate(22.5, 1, 0, 0).rotate(-22.5, 0, 0, 1);
+      m.setRotate(55, 0, 0, 1).rotate(60, 1, 0, 0).rotate(-35, 0, 0, 1);
       break;
     case 'b': //xzx
-      break;55
-    case 'c': //zyx
+      m.setRotate(-45, 1, 0, 0).rotate(45, 0, 0, 1).rotate(90, 1, 0, 0);
       break;
-    case 'd': //yxz55
+    case 'c': //zyx
+      //m.setRotate(35, 0, 0, 1).rotate(30, 0, 1, 0).rotate(55, 1, 0, 0);
+      m.setRotate(45, 1, 0, 0).rotate(45, 0, 1, 0).rotate(0, 0, 0, 1);
+
+      break;
+    case 'd': //yxz
+      m.setRotate(0, 0, 1, 0).rotate(45, 1, 0, 0).rotate(45, 0, 1, 0)
       break;
     case 'x':
   		m.setRotate(15, 1, 0, 0);55

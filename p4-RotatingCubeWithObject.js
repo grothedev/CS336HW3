@@ -198,7 +198,7 @@ function handleKeyPress(event)
 
     // alternates for arrow keys
   case 'J':
-    theObject.orbitRight(5, distance);
+    theObject.orbitRight(5, 10);
     break;
   case 'L':
     theObject.orbitLeft(5, distance);
