@@ -168,9 +168,9 @@ var projection = new Matrix4().setPerspective(30, 1.5, .1, 6);
 //var projection = new Matrix4().setFrustum(-1.5 * 1.07, 1.5 * 1.07, -1.07, 1.07, 4, 6);
 
 var axis = [0, 1, 0];
-var theta = 0; //pitch
+var theta = 0;
 var phi = 0; //head
-
+var pitch = 0;
 var paused = false;
 
 
@@ -195,10 +195,12 @@ function handleKeyPress(event)
 	{
 	// rotation controlsew Vector4(0, 1, 0, 0);ew Veew Vector4(0, 1, 0, 0);ew Vector4(0, 1, 0, 0);ew Vector4(0, 1, 0, 0);ew Vector4(0, 1, 0, 0);ew Vector4(0, 1, 0, 0);ew Vector4(0, 1, 0, 0);ew Vector4(0, 1, 0, 0);ctor4(0, 1, 0, 0);
 	case 'p': //increase pitch 5degrees
-		theta += 5;
+		//theta += 5;
+		pitch += 5;
 		break;
 	case 'P': //decrease pitch
-		theta -= 5;
+		//theta -= 5;
+		pitch -= 5;
 		break;
 	case 'h': //increase head
 		phi += 5;
@@ -212,9 +214,12 @@ function handleKeyPress(event)
 
 function updateAxis(){
 	//deg to rad
-	let tr = -theta * Math.PI / 180;
-	let pr = -phi * Math.PI / 180;
+	let tr = theta * Math.PI / 180;
+	let pr = phi * Math.PI / 180;
+
 	let l = Math.sin(tr);
+
+	//this extra axis stuff turned out to be unnecessary, as the cube model can simply rotate about its own y axis always rather than some world axis
 	axis[0] = l * Math.sin(pr);
 	axis[1] = Math.cos(tr);
 	axis[2] = l * Math.cos(pr);
@@ -225,8 +230,9 @@ function updateAxis(){
 	]);
 	*/
 
-	modelR.setRotate(phi, 0, 1, 0, 0).rotate(theta, 1, 0, 0, 0 );
-	resetCube();
+	modelR.setRotate(phi, 0, 1, 0, 0).rotate(pitch, 1, 0, 0, 0 );
+	modelCube.setRotate(phi, 0, 1, 0, 0).rotate(pitch, 1, 0, 0, 0 );
+	//resetCube();
 }
 
 // code to actually render our geometry
@@ -306,6 +312,7 @@ function draw()
 }
 
 function resetCube(){
+
 	// create model data
   var cube = makeCube();
 
@@ -453,8 +460,8 @@ function main() {
 		// default:
 		// }
 
-   //modelCube.rotate(1, 0, 1, 0);
-	 modelCube.rotate(1, axis[0], axis[1], axis[2]);
+   modelCube.rotate(1, 0, 1, 0);
+	 //modelCube.rotate(1, axis[0], axis[1], axis[2]);
 
     // another way to get the same effect as above: multiply on left by
 		// a new one-degree rotation about TRANSFORMED axis
