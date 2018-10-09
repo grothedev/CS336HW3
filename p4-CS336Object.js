@@ -264,9 +264,16 @@ CS336Object.prototype.lookDown = function(degrees)
  */
 CS336Object.prototype.orbitUp = function(degrees, distance)
 {
-  this.moveForward(distance);
-  this.lookDown(degrees);
+  let pos = this.position;
+  this.position = new Vector3();
+  this.matrixNeedsUpdate = true;
+  this.matrix = this.getMatrix();
+  //this.moveForward(distance);
+  this.lookDown(degrees);position = pos;
+  //this.moveBack(distance);
   this.moveBack(distance);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 
 };
 
@@ -289,9 +296,15 @@ CS336Object.prototype.orbitDown = function(degrees, distance)
  */
 CS336Object.prototype.orbitRight = function(degrees, distance)
 {
-  this.moveForward(distance);
+  let pos = this.position;
+  this.position = new Vector3();
+  this.matrixNeedsUpdate = true;
+  this.matrix = this.getMatrix();
+  //this.moveForward(distance);
   this.turnLeft(degrees);
   this.moveBack(distance);
+  this.matrixNeedsUpdate = true;
+  return this.getMatrix();
 };
 
 /**
